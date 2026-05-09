@@ -15,27 +15,48 @@ datasource db {
 
 // --- MODEL DATABASE ---
 model User {
-  id        Int       @id @default(autoincrement())
-  name      String
-  email     String    @unique
-  password  String    
-  role      Role      @default(USER) // untuk membedakan Admin CMS dan End-User
-  
-  // Relasi: 1 User bisa punya banyak Booking
-  bookings  Booking[] 
+  id       Int    @id @default(autoincrement())
+  name     String
+  email    String @unique
+  password String
+  role     Role   @default(USER) // untuk membedakan Admin CMS dan End-User
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  // Relasi: 1 User bisa punya banyak Booking
+  bookings Booking[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Kategori {
-  id          Int       @id @default(autoincrement())
-  name        String    @unique
+  id          Int     @id @default(autoincrement())
+  name        String  @unique
   description String?
-  
-  // Relasi: 1 Kategori bisa dimiliki banyak Tempat Wisata
-  wisatas     Wisata[]  
 
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  // Relasi: 1 Kategori bisa dimiliki banyak Tempat Wisata
+  wisatas Wisata[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Wisata {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String? @db.Text
+  price       Float // Harga tiket masuk
+  quota       Int     @default(0) // Kuota tiket per hari
+
+  // Koordinat sangat penting untuk API Cuaca (Open-Meteo)
+  latitude  Float?
+  longitude Float?
+
+  kategoriId Int
+  kategori   Kategori @relation(fields: [categoryId], references: [id])
+
+  // Relasi: 1 Tempat Wisata bisa dibooking berkali-kali
+  bookings Booking[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
