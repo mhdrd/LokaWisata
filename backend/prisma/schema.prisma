@@ -4,9 +4,9 @@
 // Get a free hosted Postgres database in seconds: `npx create-db`
 
 generator client {
-  provider        = "prisma-client"
-  output          = "../src/generated/prisma"
-  moduleFormat    = "cjs"
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
 }
 
 datasource db {
@@ -52,11 +52,29 @@ model Wisata {
   longitude Float?
 
   kategoriId Int
-  kategori   Kategori @relation(fields: [categoryId], references: [id])
+  kategori   Kategori @relation(fields: [kategoriId], references: [id])
 
   // Relasi: 1 Tempat Wisata bisa dibooking berkali-kali
   bookings Booking[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Booking {
+  id          Int           @id @default(autoincrement())
+  
+  userId      Int
+  user        User          @relation(fields: [userId], references: [id])
+  
+  wisataId    Int
+  wisata      Wisata        @relation(fields: [wisataId], references: [id])
+  
+  bookingDate DateTime      // Tanggal turis akan datang berkunjung
+  quantity    Int           // Jumlah tiket yang dibeli
+  totalPrice  Float         // Hasil dari (quantity * Wisata.price)
+  status      BookingStatus @default(PENDING) // Status pemesanan
+  
+  createdAt   DateTime      @default(now()) // Waktu saat transaksi dilakukan
+  updatedAt   DateTime      @updatedAt
 }
