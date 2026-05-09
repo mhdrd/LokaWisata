@@ -13,6 +13,18 @@ datasource db {
   provider = "postgresql"
 }
 
+// --- ENUM UNTUK STATUS & ROLE ---
+enum Role {
+  ADMIN
+  USER
+}
+
+enum BookingStatus {
+  PENDING
+  SUCCESS
+  CANCELLED
+}
+
 // --- MODEL DATABASE ---
 model User {
   id       Int    @id @default(autoincrement())
@@ -62,19 +74,19 @@ model Wisata {
 }
 
 model Booking {
-  id          Int           @id @default(autoincrement())
-  
-  userId      Int
-  user        User          @relation(fields: [userId], references: [id])
-  
-  wisataId    Int
-  wisata      Wisata        @relation(fields: [wisataId], references: [id])
-  
-  bookingDate DateTime      // Tanggal turis akan datang berkunjung
-  quantity    Int           // Jumlah tiket yang dibeli
-  totalPrice  Float         // Hasil dari (quantity * Wisata.price)
+  id Int @id @default(autoincrement())
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  wisataId Int
+  wisata   Wisata @relation(fields: [wisataId], references: [id])
+
+  bookingDate DateTime // Tanggal turis akan datang berkunjung
+  quantity    Int // Jumlah tiket yang dibeli
+  totalPrice  Float // Hasil dari (quantity * Wisata.price)
   status      BookingStatus @default(PENDING) // Status pemesanan
-  
-  createdAt   DateTime      @default(now()) // Waktu saat transaksi dilakukan
-  updatedAt   DateTime      @updatedAt
+
+  createdAt DateTime @default(now()) // Waktu saat transaksi dilakukan
+  updatedAt DateTime @updatedAt
 }
