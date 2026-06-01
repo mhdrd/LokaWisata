@@ -1,26 +1,39 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { PrismaService } from '../prisma.service';
 import { CreateWisataDto } from './dto/create-wisata.dto';
 import { UpdateWisataDto } from './dto/update-wisata.dto';
 
 @Injectable()
 export class WisataService {
+  constructor(private prisma: PrismaService) {}
+
   create(createWisataDto: CreateWisataDto) {
-    return 'This action adds a new wisata';
+    return this.prisma.wisata.create({ data: createWisataDto });
   }
 
   findAll() {
-    return `This action returns all wisata`;
+    return this.prisma.wisata.findMany({ include: { kategori: true } });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} wisata`;
+  async findOne(id: number) {
+    const wisata = await this.prisma.wisata.findUnique({ 
+      where: { id },
+      include: { kategori: true }
+    });
+    if (!wisata) {
+      throw new NotFoundException(`Wisata dengan id ${id} tidak ditemukan`);
+    }
+    return wisata;
   }
 
   update(id: number, updateWisataDto: UpdateWisataDto) {
-    return `This action updates a #${id} wisata`;
+    return this.prisma.wisata.update({
+      where: { id },
+      data: updateWisataDto,
+    });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} wisata`;
+    return this.prisma.wisata.delete({ where: { id } });
   }
 }
