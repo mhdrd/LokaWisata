@@ -54,3 +54,18 @@ export type Kategori = Prisma.KategoriModel
  * 
  */
 export type Wisata = Prisma.WisataModel
+/**
+ * Model WisataImage
+ * 
+ */
+export type WisataImage = Prisma.WisataImageModel
+/**
+ * Model Review
+ * 
+ */
+export type Review = Prisma.ReviewModel
+/**
+ * Model Favorite
+ * 
+ */
+export type Favorite = Prisma.FavoriteModel

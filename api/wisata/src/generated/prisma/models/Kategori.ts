@@ -358,10 +358,6 @@ export type KategoriScalarRelationFilter = {
   isNot?: Prisma.KategoriWhereInput
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
 export type KategoriCreateNestedOneWithoutWisatasInput = {
   create?: Prisma.XOR<Prisma.KategoriCreateWithoutWisatasInput, Prisma.KategoriUncheckedCreateWithoutWisatasInput>
   connectOrCreate?: Prisma.KategoriCreateOrConnectWithoutWisatasInput

@@ -53,7 +53,10 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   User: 'User',
   Kategori: 'Kategori',
-  Wisata: 'Wisata'
+  Wisata: 'Wisata',
+  WisataImage: 'WisataImage',
+  Review: 'Review',
+  Favorite: 'Favorite'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -78,6 +81,8 @@ export const UserScalarFieldEnum = {
   email: 'email',
   password: 'password',
   role: 'role',
+  avatar: 'avatar',
+  phone: 'phone',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -100,6 +105,7 @@ export const WisataScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
+  address: 'address',
   contactWa: 'contactWa',
   contactEmail: 'contactEmail',
   latitude: 'latitude',
@@ -110,6 +116,40 @@ export const WisataScalarFieldEnum = {
 } as const
 
 export type WisataScalarFieldEnum = (typeof WisataScalarFieldEnum)[keyof typeof WisataScalarFieldEnum]
+
+
+export const WisataImageScalarFieldEnum = {
+  id: 'id',
+  url: 'url',
+  caption: 'caption',
+  wisataId: 'wisataId',
+  createdAt: 'createdAt'
+} as const
+
+export type WisataImageScalarFieldEnum = (typeof WisataImageScalarFieldEnum)[keyof typeof WisataImageScalarFieldEnum]
+
+
+export const ReviewScalarFieldEnum = {
+  id: 'id',
+  rating: 'rating',
+  comment: 'comment',
+  userId: 'userId',
+  wisataId: 'wisataId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
+
+
+export const FavoriteScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  wisataId: 'wisataId',
+  createdAt: 'createdAt'
+} as const
+
+export type FavoriteScalarFieldEnum = (typeof FavoriteScalarFieldEnum)[keyof typeof FavoriteScalarFieldEnum]
 
 
 export const SortOrder = {

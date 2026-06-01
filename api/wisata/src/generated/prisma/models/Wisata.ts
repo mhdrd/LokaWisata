@@ -44,6 +44,7 @@ export type WisataMinAggregateOutputType = {
   id: number | null
   name: string | null
   description: string | null
+  address: string | null
   contactWa: string | null
   contactEmail: string | null
   latitude: number | null
@@ -57,6 +58,7 @@ export type WisataMaxAggregateOutputType = {
   id: number | null
   name: string | null
   description: string | null
+  address: string | null
   contactWa: string | null
   contactEmail: string | null
   latitude: number | null
@@ -70,6 +72,7 @@ export type WisataCountAggregateOutputType = {
   id: number
   name: number
   description: number
+  address: number
   contactWa: number
   contactEmail: number
   latitude: number
@@ -99,6 +102,7 @@ export type WisataMinAggregateInputType = {
   id?: true
   name?: true
   description?: true
+  address?: true
   contactWa?: true
   contactEmail?: true
   latitude?: true
@@ -112,6 +116,7 @@ export type WisataMaxAggregateInputType = {
   id?: true
   name?: true
   description?: true
+  address?: true
   contactWa?: true
   contactEmail?: true
   latitude?: true
@@ -125,6 +130,7 @@ export type WisataCountAggregateInputType = {
   id?: true
   name?: true
   description?: true
+  address?: true
   contactWa?: true
   contactEmail?: true
   latitude?: true
@@ -225,6 +231,7 @@ export type WisataGroupByOutputType = {
   id: number
   name: string
   description: string | null
+  address: string | null
   contactWa: string | null
   contactEmail: string | null
   latitude: number | null
@@ -261,6 +268,7 @@ export type WisataWhereInput = {
   id?: Prisma.IntFilter<"Wisata"> | number
   name?: Prisma.StringFilter<"Wisata"> | string
   description?: Prisma.StringNullableFilter<"Wisata"> | string | null
+  address?: Prisma.StringNullableFilter<"Wisata"> | string | null
   contactWa?: Prisma.StringNullableFilter<"Wisata"> | string | null
   contactEmail?: Prisma.StringNullableFilter<"Wisata"> | string | null
   latitude?: Prisma.FloatNullableFilter<"Wisata"> | number | null
@@ -269,12 +277,16 @@ export type WisataWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Wisata"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Wisata"> | Date | string
   kategori?: Prisma.XOR<Prisma.KategoriScalarRelationFilter, Prisma.KategoriWhereInput>
+  images?: Prisma.WisataImageListRelationFilter
+  reviews?: Prisma.ReviewListRelationFilter
+  favorites?: Prisma.FavoriteListRelationFilter
 }
 
 export type WisataOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  address?: Prisma.SortOrderInput | Prisma.SortOrder
   contactWa?: Prisma.SortOrderInput | Prisma.SortOrder
   contactEmail?: Prisma.SortOrderInput | Prisma.SortOrder
   latitude?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -283,6 +295,9 @@ export type WisataOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   kategori?: Prisma.KategoriOrderByWithRelationInput
+  images?: Prisma.WisataImageOrderByRelationAggregateInput
+  reviews?: Prisma.ReviewOrderByRelationAggregateInput
+  favorites?: Prisma.FavoriteOrderByRelationAggregateInput
 }
 
 export type WisataWhereUniqueInput = Prisma.AtLeast<{
@@ -292,6 +307,7 @@ export type WisataWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.WisataWhereInput | Prisma.WisataWhereInput[]
   name?: Prisma.StringFilter<"Wisata"> | string
   description?: Prisma.StringNullableFilter<"Wisata"> | string | null
+  address?: Prisma.StringNullableFilter<"Wisata"> | string | null
   contactWa?: Prisma.StringNullableFilter<"Wisata"> | string | null
   contactEmail?: Prisma.StringNullableFilter<"Wisata"> | string | null
   latitude?: Prisma.FloatNullableFilter<"Wisata"> | number | null
@@ -300,12 +316,16 @@ export type WisataWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Wisata"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Wisata"> | Date | string
   kategori?: Prisma.XOR<Prisma.KategoriScalarRelationFilter, Prisma.KategoriWhereInput>
+  images?: Prisma.WisataImageListRelationFilter
+  reviews?: Prisma.ReviewListRelationFilter
+  favorites?: Prisma.FavoriteListRelationFilter
 }, "id">
 
 export type WisataOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  address?: Prisma.SortOrderInput | Prisma.SortOrder
   contactWa?: Prisma.SortOrderInput | Prisma.SortOrder
   contactEmail?: Prisma.SortOrderInput | Prisma.SortOrder
   latitude?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -327,6 +347,7 @@ export type WisataScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Wisata"> | number
   name?: Prisma.StringWithAggregatesFilter<"Wisata"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Wisata"> | string | null
+  address?: Prisma.StringNullableWithAggregatesFilter<"Wisata"> | string | null
   contactWa?: Prisma.StringNullableWithAggregatesFilter<"Wisata"> | string | null
   contactEmail?: Prisma.StringNullableWithAggregatesFilter<"Wisata"> | string | null
   latitude?: Prisma.FloatNullableWithAggregatesFilter<"Wisata"> | number | null
@@ -339,6 +360,7 @@ export type WisataScalarWhereWithAggregatesInput = {
 export type WisataCreateInput = {
   name: string
   description?: string | null
+  address?: string | null
   contactWa?: string | null
   contactEmail?: string | null
   latitude?: number | null
@@ -346,12 +368,16 @@ export type WisataCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   kategori: Prisma.KategoriCreateNestedOneWithoutWisatasInput
+  images?: Prisma.WisataImageCreateNestedManyWithoutWisataInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutWisataInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutWisataInput
 }
 
 export type WisataUncheckedCreateInput = {
   id?: number
   name: string
   description?: string | null
+  address?: string | null
   contactWa?: string | null
   contactEmail?: string | null
   latitude?: number | null
@@ -359,11 +385,15 @@ export type WisataUncheckedCreateInput = {
   kategoriId: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  images?: Prisma.WisataImageUncheckedCreateNestedManyWithoutWisataInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutWisataInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutWisataInput
 }
 
 export type WisataUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactWa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -371,12 +401,16 @@ export type WisataUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   kategori?: Prisma.KategoriUpdateOneRequiredWithoutWisatasNestedInput
+  images?: Prisma.WisataImageUpdateManyWithoutWisataNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutWisataNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutWisataNestedInput
 }
 
 export type WisataUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactWa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -384,12 +418,16 @@ export type WisataUncheckedUpdateInput = {
   kategoriId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  images?: Prisma.WisataImageUncheckedUpdateManyWithoutWisataNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutWisataNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutWisataNestedInput
 }
 
 export type WisataCreateManyInput = {
   id?: number
   name: string
   description?: string | null
+  address?: string | null
   contactWa?: string | null
   contactEmail?: string | null
   latitude?: number | null
@@ -402,6 +440,7 @@ export type WisataCreateManyInput = {
 export type WisataUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactWa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -414,6 +453,7 @@ export type WisataUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactWa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -437,6 +477,7 @@ export type WisataCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  address?: Prisma.SortOrder
   contactWa?: Prisma.SortOrder
   contactEmail?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
@@ -457,6 +498,7 @@ export type WisataMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  address?: Prisma.SortOrder
   contactWa?: Prisma.SortOrder
   contactEmail?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
@@ -470,6 +512,7 @@ export type WisataMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  address?: Prisma.SortOrder
   contactWa?: Prisma.SortOrder
   contactEmail?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
@@ -484,6 +527,11 @@ export type WisataSumOrderByAggregateInput = {
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
   kategoriId?: Prisma.SortOrder
+}
+
+export type WisataScalarRelationFilter = {
+  is?: Prisma.WisataWhereInput
+  isNot?: Prisma.WisataWhereInput
 }
 
 export type WisataCreateNestedManyWithoutKategoriInput = {
@@ -536,27 +584,77 @@ export type NullableFloatFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type WisataCreateNestedOneWithoutImagesInput = {
+  create?: Prisma.XOR<Prisma.WisataCreateWithoutImagesInput, Prisma.WisataUncheckedCreateWithoutImagesInput>
+  connectOrCreate?: Prisma.WisataCreateOrConnectWithoutImagesInput
+  connect?: Prisma.WisataWhereUniqueInput
+}
+
+export type WisataUpdateOneRequiredWithoutImagesNestedInput = {
+  create?: Prisma.XOR<Prisma.WisataCreateWithoutImagesInput, Prisma.WisataUncheckedCreateWithoutImagesInput>
+  connectOrCreate?: Prisma.WisataCreateOrConnectWithoutImagesInput
+  upsert?: Prisma.WisataUpsertWithoutImagesInput
+  connect?: Prisma.WisataWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.WisataUpdateToOneWithWhereWithoutImagesInput, Prisma.WisataUpdateWithoutImagesInput>, Prisma.WisataUncheckedUpdateWithoutImagesInput>
+}
+
+export type WisataCreateNestedOneWithoutReviewsInput = {
+  create?: Prisma.XOR<Prisma.WisataCreateWithoutReviewsInput, Prisma.WisataUncheckedCreateWithoutReviewsInput>
+  connectOrCreate?: Prisma.WisataCreateOrConnectWithoutReviewsInput
+  connect?: Prisma.WisataWhereUniqueInput
+}
+
+export type WisataUpdateOneRequiredWithoutReviewsNestedInput = {
+  create?: Prisma.XOR<Prisma.WisataCreateWithoutReviewsInput, Prisma.WisataUncheckedCreateWithoutReviewsInput>
+  connectOrCreate?: Prisma.WisataCreateOrConnectWithoutReviewsInput
+  upsert?: Prisma.WisataUpsertWithoutReviewsInput
+  connect?: Prisma.WisataWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.WisataUpdateToOneWithWhereWithoutReviewsInput, Prisma.WisataUpdateWithoutReviewsInput>, Prisma.WisataUncheckedUpdateWithoutReviewsInput>
+}
+
+export type WisataCreateNestedOneWithoutFavoritesInput = {
+  create?: Prisma.XOR<Prisma.WisataCreateWithoutFavoritesInput, Prisma.WisataUncheckedCreateWithoutFavoritesInput>
+  connectOrCreate?: Prisma.WisataCreateOrConnectWithoutFavoritesInput
+  connect?: Prisma.WisataWhereUniqueInput
+}
+
+export type WisataUpdateOneRequiredWithoutFavoritesNestedInput = {
+  create?: Prisma.XOR<Prisma.WisataCreateWithoutFavoritesInput, Prisma.WisataUncheckedCreateWithoutFavoritesInput>
+  connectOrCreate?: Prisma.WisataCreateOrConnectWithoutFavoritesInput
+  upsert?: Prisma.WisataUpsertWithoutFavoritesInput
+  connect?: Prisma.WisataWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.WisataUpdateToOneWithWhereWithoutFavoritesInput, Prisma.WisataUpdateWithoutFavoritesInput>, Prisma.WisataUncheckedUpdateWithoutFavoritesInput>
+}
+
 export type WisataCreateWithoutKategoriInput = {
   name: string
   description?: string | null
+  address?: string | null
   contactWa?: string | null
   contactEmail?: string | null
   latitude?: number | null
   longitude?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  images?: Prisma.WisataImageCreateNestedManyWithoutWisataInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutWisataInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutWisataInput
 }
 
 export type WisataUncheckedCreateWithoutKategoriInput = {
   id?: number
   name: string
   description?: string | null
+  address?: string | null
   contactWa?: string | null
   contactEmail?: string | null
   latitude?: number | null
   longitude?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  images?: Prisma.WisataImageUncheckedCreateNestedManyWithoutWisataInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutWisataInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutWisataInput
 }
 
 export type WisataCreateOrConnectWithoutKategoriInput = {
@@ -592,6 +690,7 @@ export type WisataScalarWhereInput = {
   id?: Prisma.IntFilter<"Wisata"> | number
   name?: Prisma.StringFilter<"Wisata"> | string
   description?: Prisma.StringNullableFilter<"Wisata"> | string | null
+  address?: Prisma.StringNullableFilter<"Wisata"> | string | null
   contactWa?: Prisma.StringNullableFilter<"Wisata"> | string | null
   contactEmail?: Prisma.StringNullableFilter<"Wisata"> | string | null
   latitude?: Prisma.FloatNullableFilter<"Wisata"> | number | null
@@ -601,10 +700,245 @@ export type WisataScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Wisata"> | Date | string
 }
 
+export type WisataCreateWithoutImagesInput = {
+  name: string
+  description?: string | null
+  address?: string | null
+  contactWa?: string | null
+  contactEmail?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  kategori: Prisma.KategoriCreateNestedOneWithoutWisatasInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutWisataInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutWisataInput
+}
+
+export type WisataUncheckedCreateWithoutImagesInput = {
+  id?: number
+  name: string
+  description?: string | null
+  address?: string | null
+  contactWa?: string | null
+  contactEmail?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  kategoriId: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutWisataInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutWisataInput
+}
+
+export type WisataCreateOrConnectWithoutImagesInput = {
+  where: Prisma.WisataWhereUniqueInput
+  create: Prisma.XOR<Prisma.WisataCreateWithoutImagesInput, Prisma.WisataUncheckedCreateWithoutImagesInput>
+}
+
+export type WisataUpsertWithoutImagesInput = {
+  update: Prisma.XOR<Prisma.WisataUpdateWithoutImagesInput, Prisma.WisataUncheckedUpdateWithoutImagesInput>
+  create: Prisma.XOR<Prisma.WisataCreateWithoutImagesInput, Prisma.WisataUncheckedCreateWithoutImagesInput>
+  where?: Prisma.WisataWhereInput
+}
+
+export type WisataUpdateToOneWithWhereWithoutImagesInput = {
+  where?: Prisma.WisataWhereInput
+  data: Prisma.XOR<Prisma.WisataUpdateWithoutImagesInput, Prisma.WisataUncheckedUpdateWithoutImagesInput>
+}
+
+export type WisataUpdateWithoutImagesInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactWa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  kategori?: Prisma.KategoriUpdateOneRequiredWithoutWisatasNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutWisataNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutWisataNestedInput
+}
+
+export type WisataUncheckedUpdateWithoutImagesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactWa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  kategoriId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutWisataNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutWisataNestedInput
+}
+
+export type WisataCreateWithoutReviewsInput = {
+  name: string
+  description?: string | null
+  address?: string | null
+  contactWa?: string | null
+  contactEmail?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  kategori: Prisma.KategoriCreateNestedOneWithoutWisatasInput
+  images?: Prisma.WisataImageCreateNestedManyWithoutWisataInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutWisataInput
+}
+
+export type WisataUncheckedCreateWithoutReviewsInput = {
+  id?: number
+  name: string
+  description?: string | null
+  address?: string | null
+  contactWa?: string | null
+  contactEmail?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  kategoriId: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  images?: Prisma.WisataImageUncheckedCreateNestedManyWithoutWisataInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutWisataInput
+}
+
+export type WisataCreateOrConnectWithoutReviewsInput = {
+  where: Prisma.WisataWhereUniqueInput
+  create: Prisma.XOR<Prisma.WisataCreateWithoutReviewsInput, Prisma.WisataUncheckedCreateWithoutReviewsInput>
+}
+
+export type WisataUpsertWithoutReviewsInput = {
+  update: Prisma.XOR<Prisma.WisataUpdateWithoutReviewsInput, Prisma.WisataUncheckedUpdateWithoutReviewsInput>
+  create: Prisma.XOR<Prisma.WisataCreateWithoutReviewsInput, Prisma.WisataUncheckedCreateWithoutReviewsInput>
+  where?: Prisma.WisataWhereInput
+}
+
+export type WisataUpdateToOneWithWhereWithoutReviewsInput = {
+  where?: Prisma.WisataWhereInput
+  data: Prisma.XOR<Prisma.WisataUpdateWithoutReviewsInput, Prisma.WisataUncheckedUpdateWithoutReviewsInput>
+}
+
+export type WisataUpdateWithoutReviewsInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactWa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  kategori?: Prisma.KategoriUpdateOneRequiredWithoutWisatasNestedInput
+  images?: Prisma.WisataImageUpdateManyWithoutWisataNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutWisataNestedInput
+}
+
+export type WisataUncheckedUpdateWithoutReviewsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactWa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  kategoriId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  images?: Prisma.WisataImageUncheckedUpdateManyWithoutWisataNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutWisataNestedInput
+}
+
+export type WisataCreateWithoutFavoritesInput = {
+  name: string
+  description?: string | null
+  address?: string | null
+  contactWa?: string | null
+  contactEmail?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  kategori: Prisma.KategoriCreateNestedOneWithoutWisatasInput
+  images?: Prisma.WisataImageCreateNestedManyWithoutWisataInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutWisataInput
+}
+
+export type WisataUncheckedCreateWithoutFavoritesInput = {
+  id?: number
+  name: string
+  description?: string | null
+  address?: string | null
+  contactWa?: string | null
+  contactEmail?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  kategoriId: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  images?: Prisma.WisataImageUncheckedCreateNestedManyWithoutWisataInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutWisataInput
+}
+
+export type WisataCreateOrConnectWithoutFavoritesInput = {
+  where: Prisma.WisataWhereUniqueInput
+  create: Prisma.XOR<Prisma.WisataCreateWithoutFavoritesInput, Prisma.WisataUncheckedCreateWithoutFavoritesInput>
+}
+
+export type WisataUpsertWithoutFavoritesInput = {
+  update: Prisma.XOR<Prisma.WisataUpdateWithoutFavoritesInput, Prisma.WisataUncheckedUpdateWithoutFavoritesInput>
+  create: Prisma.XOR<Prisma.WisataCreateWithoutFavoritesInput, Prisma.WisataUncheckedCreateWithoutFavoritesInput>
+  where?: Prisma.WisataWhereInput
+}
+
+export type WisataUpdateToOneWithWhereWithoutFavoritesInput = {
+  where?: Prisma.WisataWhereInput
+  data: Prisma.XOR<Prisma.WisataUpdateWithoutFavoritesInput, Prisma.WisataUncheckedUpdateWithoutFavoritesInput>
+}
+
+export type WisataUpdateWithoutFavoritesInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactWa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  kategori?: Prisma.KategoriUpdateOneRequiredWithoutWisatasNestedInput
+  images?: Prisma.WisataImageUpdateManyWithoutWisataNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutWisataNestedInput
+}
+
+export type WisataUncheckedUpdateWithoutFavoritesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactWa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  kategoriId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  images?: Prisma.WisataImageUncheckedUpdateManyWithoutWisataNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutWisataNestedInput
+}
+
 export type WisataCreateManyKategoriInput = {
   id?: number
   name: string
   description?: string | null
+  address?: string | null
   contactWa?: string | null
   contactEmail?: string | null
   latitude?: number | null
@@ -616,30 +950,39 @@ export type WisataCreateManyKategoriInput = {
 export type WisataUpdateWithoutKategoriInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactWa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  images?: Prisma.WisataImageUpdateManyWithoutWisataNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutWisataNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutWisataNestedInput
 }
 
 export type WisataUncheckedUpdateWithoutKategoriInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactWa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  images?: Prisma.WisataImageUncheckedUpdateManyWithoutWisataNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutWisataNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutWisataNestedInput
 }
 
 export type WisataUncheckedUpdateManyWithoutKategoriInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactWa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -649,11 +992,59 @@ export type WisataUncheckedUpdateManyWithoutKategoriInput = {
 }
 
 
+/**
+ * Count Type WisataCountOutputType
+ */
+
+export type WisataCountOutputType = {
+  images: number
+  reviews: number
+  favorites: number
+}
+
+export type WisataCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  images?: boolean | WisataCountOutputTypeCountImagesArgs
+  reviews?: boolean | WisataCountOutputTypeCountReviewsArgs
+  favorites?: boolean | WisataCountOutputTypeCountFavoritesArgs
+}
+
+/**
+ * WisataCountOutputType without action
+ */
+export type WisataCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the WisataCountOutputType
+   */
+  select?: Prisma.WisataCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * WisataCountOutputType without action
+ */
+export type WisataCountOutputTypeCountImagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WisataImageWhereInput
+}
+
+/**
+ * WisataCountOutputType without action
+ */
+export type WisataCountOutputTypeCountReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReviewWhereInput
+}
+
+/**
+ * WisataCountOutputType without action
+ */
+export type WisataCountOutputTypeCountFavoritesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FavoriteWhereInput
+}
+
 
 export type WisataSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   description?: boolean
+  address?: boolean
   contactWa?: boolean
   contactEmail?: boolean
   latitude?: boolean
@@ -662,12 +1053,17 @@ export type WisataSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   createdAt?: boolean
   updatedAt?: boolean
   kategori?: boolean | Prisma.KategoriDefaultArgs<ExtArgs>
+  images?: boolean | Prisma.Wisata$imagesArgs<ExtArgs>
+  reviews?: boolean | Prisma.Wisata$reviewsArgs<ExtArgs>
+  favorites?: boolean | Prisma.Wisata$favoritesArgs<ExtArgs>
+  _count?: boolean | Prisma.WisataCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["wisata"]>
 
 export type WisataSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   description?: boolean
+  address?: boolean
   contactWa?: boolean
   contactEmail?: boolean
   latitude?: boolean
@@ -682,6 +1078,7 @@ export type WisataSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   id?: boolean
   name?: boolean
   description?: boolean
+  address?: boolean
   contactWa?: boolean
   contactEmail?: boolean
   latitude?: boolean
@@ -696,6 +1093,7 @@ export type WisataSelectScalar = {
   id?: boolean
   name?: boolean
   description?: boolean
+  address?: boolean
   contactWa?: boolean
   contactEmail?: boolean
   latitude?: boolean
@@ -705,9 +1103,13 @@ export type WisataSelectScalar = {
   updatedAt?: boolean
 }
 
-export type WisataOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "contactWa" | "contactEmail" | "latitude" | "longitude" | "kategoriId" | "createdAt" | "updatedAt", ExtArgs["result"]["wisata"]>
+export type WisataOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "address" | "contactWa" | "contactEmail" | "latitude" | "longitude" | "kategoriId" | "createdAt" | "updatedAt", ExtArgs["result"]["wisata"]>
 export type WisataInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   kategori?: boolean | Prisma.KategoriDefaultArgs<ExtArgs>
+  images?: boolean | Prisma.Wisata$imagesArgs<ExtArgs>
+  reviews?: boolean | Prisma.Wisata$reviewsArgs<ExtArgs>
+  favorites?: boolean | Prisma.Wisata$favoritesArgs<ExtArgs>
+  _count?: boolean | Prisma.WisataCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type WisataIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   kategori?: boolean | Prisma.KategoriDefaultArgs<ExtArgs>
@@ -720,11 +1122,15 @@ export type $WisataPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   name: "Wisata"
   objects: {
     kategori: Prisma.$KategoriPayload<ExtArgs>
+    images: Prisma.$WisataImagePayload<ExtArgs>[]
+    reviews: Prisma.$ReviewPayload<ExtArgs>[]
+    favorites: Prisma.$FavoritePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     name: string
     description: string | null
+    address: string | null
     contactWa: string | null
     contactEmail: string | null
     latitude: number | null
@@ -1127,6 +1533,9 @@ readonly fields: WisataFieldRefs;
 export interface Prisma__WisataClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   kategori<T extends Prisma.KategoriDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.KategoriDefaultArgs<ExtArgs>>): Prisma.Prisma__KategoriClient<runtime.Types.Result.GetResult<Prisma.$KategoriPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  images<T extends Prisma.Wisata$imagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Wisata$imagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WisataImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reviews<T extends Prisma.Wisata$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Wisata$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  favorites<T extends Prisma.Wisata$favoritesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Wisata$favoritesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FavoritePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1159,6 +1568,7 @@ export interface WisataFieldRefs {
   readonly id: Prisma.FieldRef<"Wisata", 'Int'>
   readonly name: Prisma.FieldRef<"Wisata", 'String'>
   readonly description: Prisma.FieldRef<"Wisata", 'String'>
+  readonly address: Prisma.FieldRef<"Wisata", 'String'>
   readonly contactWa: Prisma.FieldRef<"Wisata", 'String'>
   readonly contactEmail: Prisma.FieldRef<"Wisata", 'String'>
   readonly latitude: Prisma.FieldRef<"Wisata", 'Float'>
@@ -1564,6 +1974,78 @@ export type WisataDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Limit how many Wisatas to delete.
    */
   limit?: number
+}
+
+/**
+ * Wisata.images
+ */
+export type Wisata$imagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the WisataImage
+   */
+  select?: Prisma.WisataImageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the WisataImage
+   */
+  omit?: Prisma.WisataImageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WisataImageInclude<ExtArgs> | null
+  where?: Prisma.WisataImageWhereInput
+  orderBy?: Prisma.WisataImageOrderByWithRelationInput | Prisma.WisataImageOrderByWithRelationInput[]
+  cursor?: Prisma.WisataImageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WisataImageScalarFieldEnum | Prisma.WisataImageScalarFieldEnum[]
+}
+
+/**
+ * Wisata.reviews
+ */
+export type Wisata$reviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Review
+   */
+  select?: Prisma.ReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Review
+   */
+  omit?: Prisma.ReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReviewInclude<ExtArgs> | null
+  where?: Prisma.ReviewWhereInput
+  orderBy?: Prisma.ReviewOrderByWithRelationInput | Prisma.ReviewOrderByWithRelationInput[]
+  cursor?: Prisma.ReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReviewScalarFieldEnum | Prisma.ReviewScalarFieldEnum[]
+}
+
+/**
+ * Wisata.favorites
+ */
+export type Wisata$favoritesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Favorite
+   */
+  select?: Prisma.FavoriteSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Favorite
+   */
+  omit?: Prisma.FavoriteOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FavoriteInclude<ExtArgs> | null
+  where?: Prisma.FavoriteWhereInput
+  orderBy?: Prisma.FavoriteOrderByWithRelationInput | Prisma.FavoriteOrderByWithRelationInput[]
+  cursor?: Prisma.FavoriteWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FavoriteScalarFieldEnum | Prisma.FavoriteScalarFieldEnum[]
 }
 
 /**
