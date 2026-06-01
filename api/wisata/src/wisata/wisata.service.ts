@@ -26,7 +26,8 @@ export class WisataService {
     return wisata;
   }
 
-  update(id: number, updateWisataDto: UpdateWisataDto) {
+  async update(id: number, updateWisataDto: UpdateWisataDto) {
+    await this.findOne(id);
     return this.prisma.wisata.update({
       where: { id },
       data: updateWisataDto,
