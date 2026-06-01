@@ -28,8 +28,6 @@ export type AggregateWisata = {
 
 export type WisataAvgAggregateOutputType = {
   id: number | null
-  price: number | null
-  quota: number | null
   latitude: number | null
   longitude: number | null
   kategoriId: number | null
@@ -37,8 +35,6 @@ export type WisataAvgAggregateOutputType = {
 
 export type WisataSumAggregateOutputType = {
   id: number | null
-  price: number | null
-  quota: number | null
   latitude: number | null
   longitude: number | null
   kategoriId: number | null
@@ -48,8 +44,8 @@ export type WisataMinAggregateOutputType = {
   id: number | null
   name: string | null
   description: string | null
-  price: number | null
-  quota: number | null
+  contactWa: string | null
+  contactEmail: string | null
   latitude: number | null
   longitude: number | null
   kategoriId: number | null
@@ -61,8 +57,8 @@ export type WisataMaxAggregateOutputType = {
   id: number | null
   name: string | null
   description: string | null
-  price: number | null
-  quota: number | null
+  contactWa: string | null
+  contactEmail: string | null
   latitude: number | null
   longitude: number | null
   kategoriId: number | null
@@ -74,8 +70,8 @@ export type WisataCountAggregateOutputType = {
   id: number
   name: number
   description: number
-  price: number
-  quota: number
+  contactWa: number
+  contactEmail: number
   latitude: number
   longitude: number
   kategoriId: number
@@ -87,8 +83,6 @@ export type WisataCountAggregateOutputType = {
 
 export type WisataAvgAggregateInputType = {
   id?: true
-  price?: true
-  quota?: true
   latitude?: true
   longitude?: true
   kategoriId?: true
@@ -96,8 +90,6 @@ export type WisataAvgAggregateInputType = {
 
 export type WisataSumAggregateInputType = {
   id?: true
-  price?: true
-  quota?: true
   latitude?: true
   longitude?: true
   kategoriId?: true
@@ -107,8 +99,8 @@ export type WisataMinAggregateInputType = {
   id?: true
   name?: true
   description?: true
-  price?: true
-  quota?: true
+  contactWa?: true
+  contactEmail?: true
   latitude?: true
   longitude?: true
   kategoriId?: true
@@ -120,8 +112,8 @@ export type WisataMaxAggregateInputType = {
   id?: true
   name?: true
   description?: true
-  price?: true
-  quota?: true
+  contactWa?: true
+  contactEmail?: true
   latitude?: true
   longitude?: true
   kategoriId?: true
@@ -133,8 +125,8 @@ export type WisataCountAggregateInputType = {
   id?: true
   name?: true
   description?: true
-  price?: true
-  quota?: true
+  contactWa?: true
+  contactEmail?: true
   latitude?: true
   longitude?: true
   kategoriId?: true
@@ -233,8 +225,8 @@ export type WisataGroupByOutputType = {
   id: number
   name: string
   description: string | null
-  price: number
-  quota: number
+  contactWa: string | null
+  contactEmail: string | null
   latitude: number | null
   longitude: number | null
   kategoriId: number
@@ -269,30 +261,28 @@ export type WisataWhereInput = {
   id?: Prisma.IntFilter<"Wisata"> | number
   name?: Prisma.StringFilter<"Wisata"> | string
   description?: Prisma.StringNullableFilter<"Wisata"> | string | null
-  price?: Prisma.FloatFilter<"Wisata"> | number
-  quota?: Prisma.IntFilter<"Wisata"> | number
+  contactWa?: Prisma.StringNullableFilter<"Wisata"> | string | null
+  contactEmail?: Prisma.StringNullableFilter<"Wisata"> | string | null
   latitude?: Prisma.FloatNullableFilter<"Wisata"> | number | null
   longitude?: Prisma.FloatNullableFilter<"Wisata"> | number | null
   kategoriId?: Prisma.IntFilter<"Wisata"> | number
   createdAt?: Prisma.DateTimeFilter<"Wisata"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Wisata"> | Date | string
   kategori?: Prisma.XOR<Prisma.KategoriScalarRelationFilter, Prisma.KategoriWhereInput>
-  bookings?: Prisma.BookingListRelationFilter
 }
 
 export type WisataOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  price?: Prisma.SortOrder
-  quota?: Prisma.SortOrder
+  contactWa?: Prisma.SortOrderInput | Prisma.SortOrder
+  contactEmail?: Prisma.SortOrderInput | Prisma.SortOrder
   latitude?: Prisma.SortOrderInput | Prisma.SortOrder
   longitude?: Prisma.SortOrderInput | Prisma.SortOrder
   kategoriId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   kategori?: Prisma.KategoriOrderByWithRelationInput
-  bookings?: Prisma.BookingOrderByRelationAggregateInput
 }
 
 export type WisataWhereUniqueInput = Prisma.AtLeast<{
@@ -302,23 +292,22 @@ export type WisataWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.WisataWhereInput | Prisma.WisataWhereInput[]
   name?: Prisma.StringFilter<"Wisata"> | string
   description?: Prisma.StringNullableFilter<"Wisata"> | string | null
-  price?: Prisma.FloatFilter<"Wisata"> | number
-  quota?: Prisma.IntFilter<"Wisata"> | number
+  contactWa?: Prisma.StringNullableFilter<"Wisata"> | string | null
+  contactEmail?: Prisma.StringNullableFilter<"Wisata"> | string | null
   latitude?: Prisma.FloatNullableFilter<"Wisata"> | number | null
   longitude?: Prisma.FloatNullableFilter<"Wisata"> | number | null
   kategoriId?: Prisma.IntFilter<"Wisata"> | number
   createdAt?: Prisma.DateTimeFilter<"Wisata"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Wisata"> | Date | string
   kategori?: Prisma.XOR<Prisma.KategoriScalarRelationFilter, Prisma.KategoriWhereInput>
-  bookings?: Prisma.BookingListRelationFilter
 }, "id">
 
 export type WisataOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  price?: Prisma.SortOrder
-  quota?: Prisma.SortOrder
+  contactWa?: Prisma.SortOrderInput | Prisma.SortOrder
+  contactEmail?: Prisma.SortOrderInput | Prisma.SortOrder
   latitude?: Prisma.SortOrderInput | Prisma.SortOrder
   longitude?: Prisma.SortOrderInput | Prisma.SortOrder
   kategoriId?: Prisma.SortOrder
@@ -338,8 +327,8 @@ export type WisataScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Wisata"> | number
   name?: Prisma.StringWithAggregatesFilter<"Wisata"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Wisata"> | string | null
-  price?: Prisma.FloatWithAggregatesFilter<"Wisata"> | number
-  quota?: Prisma.IntWithAggregatesFilter<"Wisata"> | number
+  contactWa?: Prisma.StringNullableWithAggregatesFilter<"Wisata"> | string | null
+  contactEmail?: Prisma.StringNullableWithAggregatesFilter<"Wisata"> | string | null
   latitude?: Prisma.FloatNullableWithAggregatesFilter<"Wisata"> | number | null
   longitude?: Prisma.FloatNullableWithAggregatesFilter<"Wisata"> | number | null
   kategoriId?: Prisma.IntWithAggregatesFilter<"Wisata"> | number
@@ -350,63 +339,59 @@ export type WisataScalarWhereWithAggregatesInput = {
 export type WisataCreateInput = {
   name: string
   description?: string | null
-  price: number
-  quota?: number
+  contactWa?: string | null
+  contactEmail?: string | null
   latitude?: number | null
   longitude?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   kategori: Prisma.KategoriCreateNestedOneWithoutWisatasInput
-  bookings?: Prisma.BookingCreateNestedManyWithoutWisataInput
 }
 
 export type WisataUncheckedCreateInput = {
   id?: number
   name: string
   description?: string | null
-  price: number
-  quota?: number
+  contactWa?: string | null
+  contactEmail?: string | null
   latitude?: number | null
   longitude?: number | null
   kategoriId: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutWisataInput
 }
 
 export type WisataUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  price?: Prisma.FloatFieldUpdateOperationsInput | number
-  quota?: Prisma.IntFieldUpdateOperationsInput | number
+  contactWa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   kategori?: Prisma.KategoriUpdateOneRequiredWithoutWisatasNestedInput
-  bookings?: Prisma.BookingUpdateManyWithoutWisataNestedInput
 }
 
 export type WisataUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  price?: Prisma.FloatFieldUpdateOperationsInput | number
-  quota?: Prisma.IntFieldUpdateOperationsInput | number
+  contactWa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   kategoriId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  bookings?: Prisma.BookingUncheckedUpdateManyWithoutWisataNestedInput
 }
 
 export type WisataCreateManyInput = {
   id?: number
   name: string
   description?: string | null
-  price: number
-  quota?: number
+  contactWa?: string | null
+  contactEmail?: string | null
   latitude?: number | null
   longitude?: number | null
   kategoriId: number
@@ -417,8 +402,8 @@ export type WisataCreateManyInput = {
 export type WisataUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  price?: Prisma.FloatFieldUpdateOperationsInput | number
-  quota?: Prisma.IntFieldUpdateOperationsInput | number
+  contactWa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -429,8 +414,8 @@ export type WisataUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  price?: Prisma.FloatFieldUpdateOperationsInput | number
-  quota?: Prisma.IntFieldUpdateOperationsInput | number
+  contactWa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   kategoriId?: Prisma.IntFieldUpdateOperationsInput | number
@@ -452,8 +437,8 @@ export type WisataCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  price?: Prisma.SortOrder
-  quota?: Prisma.SortOrder
+  contactWa?: Prisma.SortOrder
+  contactEmail?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
   kategoriId?: Prisma.SortOrder
@@ -463,8 +448,6 @@ export type WisataCountOrderByAggregateInput = {
 
 export type WisataAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  price?: Prisma.SortOrder
-  quota?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
   kategoriId?: Prisma.SortOrder
@@ -474,8 +457,8 @@ export type WisataMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  price?: Prisma.SortOrder
-  quota?: Prisma.SortOrder
+  contactWa?: Prisma.SortOrder
+  contactEmail?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
   kategoriId?: Prisma.SortOrder
@@ -487,8 +470,8 @@ export type WisataMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  price?: Prisma.SortOrder
-  quota?: Prisma.SortOrder
+  contactWa?: Prisma.SortOrder
+  contactEmail?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
   kategoriId?: Prisma.SortOrder
@@ -498,16 +481,9 @@ export type WisataMinOrderByAggregateInput = {
 
 export type WisataSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  price?: Prisma.SortOrder
-  quota?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
   kategoriId?: Prisma.SortOrder
-}
-
-export type WisataScalarRelationFilter = {
-  is?: Prisma.WisataWhereInput
-  isNot?: Prisma.WisataWhereInput
 }
 
 export type WisataCreateNestedManyWithoutKategoriInput = {
@@ -552,14 +528,6 @@ export type WisataUncheckedUpdateManyWithoutKategoriNestedInput = {
   deleteMany?: Prisma.WisataScalarWhereInput | Prisma.WisataScalarWhereInput[]
 }
 
-export type FloatFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type NullableFloatFieldUpdateOperationsInput = {
   set?: number | null
   increment?: number
@@ -568,43 +536,27 @@ export type NullableFloatFieldUpdateOperationsInput = {
   divide?: number
 }
 
-export type WisataCreateNestedOneWithoutBookingsInput = {
-  create?: Prisma.XOR<Prisma.WisataCreateWithoutBookingsInput, Prisma.WisataUncheckedCreateWithoutBookingsInput>
-  connectOrCreate?: Prisma.WisataCreateOrConnectWithoutBookingsInput
-  connect?: Prisma.WisataWhereUniqueInput
-}
-
-export type WisataUpdateOneRequiredWithoutBookingsNestedInput = {
-  create?: Prisma.XOR<Prisma.WisataCreateWithoutBookingsInput, Prisma.WisataUncheckedCreateWithoutBookingsInput>
-  connectOrCreate?: Prisma.WisataCreateOrConnectWithoutBookingsInput
-  upsert?: Prisma.WisataUpsertWithoutBookingsInput
-  connect?: Prisma.WisataWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.WisataUpdateToOneWithWhereWithoutBookingsInput, Prisma.WisataUpdateWithoutBookingsInput>, Prisma.WisataUncheckedUpdateWithoutBookingsInput>
-}
-
 export type WisataCreateWithoutKategoriInput = {
   name: string
   description?: string | null
-  price: number
-  quota?: number
+  contactWa?: string | null
+  contactEmail?: string | null
   latitude?: number | null
   longitude?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  bookings?: Prisma.BookingCreateNestedManyWithoutWisataInput
 }
 
 export type WisataUncheckedCreateWithoutKategoriInput = {
   id?: number
   name: string
   description?: string | null
-  price: number
-  quota?: number
+  contactWa?: string | null
+  contactEmail?: string | null
   latitude?: number | null
   longitude?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutWisataInput
 }
 
 export type WisataCreateOrConnectWithoutKategoriInput = {
@@ -640,8 +592,8 @@ export type WisataScalarWhereInput = {
   id?: Prisma.IntFilter<"Wisata"> | number
   name?: Prisma.StringFilter<"Wisata"> | string
   description?: Prisma.StringNullableFilter<"Wisata"> | string | null
-  price?: Prisma.FloatFilter<"Wisata"> | number
-  quota?: Prisma.IntFilter<"Wisata"> | number
+  contactWa?: Prisma.StringNullableFilter<"Wisata"> | string | null
+  contactEmail?: Prisma.StringNullableFilter<"Wisata"> | string | null
   latitude?: Prisma.FloatNullableFilter<"Wisata"> | number | null
   longitude?: Prisma.FloatNullableFilter<"Wisata"> | number | null
   kategoriId?: Prisma.IntFilter<"Wisata"> | number
@@ -649,78 +601,12 @@ export type WisataScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Wisata"> | Date | string
 }
 
-export type WisataCreateWithoutBookingsInput = {
-  name: string
-  description?: string | null
-  price: number
-  quota?: number
-  latitude?: number | null
-  longitude?: number | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  kategori: Prisma.KategoriCreateNestedOneWithoutWisatasInput
-}
-
-export type WisataUncheckedCreateWithoutBookingsInput = {
-  id?: number
-  name: string
-  description?: string | null
-  price: number
-  quota?: number
-  latitude?: number | null
-  longitude?: number | null
-  kategoriId: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type WisataCreateOrConnectWithoutBookingsInput = {
-  where: Prisma.WisataWhereUniqueInput
-  create: Prisma.XOR<Prisma.WisataCreateWithoutBookingsInput, Prisma.WisataUncheckedCreateWithoutBookingsInput>
-}
-
-export type WisataUpsertWithoutBookingsInput = {
-  update: Prisma.XOR<Prisma.WisataUpdateWithoutBookingsInput, Prisma.WisataUncheckedUpdateWithoutBookingsInput>
-  create: Prisma.XOR<Prisma.WisataCreateWithoutBookingsInput, Prisma.WisataUncheckedCreateWithoutBookingsInput>
-  where?: Prisma.WisataWhereInput
-}
-
-export type WisataUpdateToOneWithWhereWithoutBookingsInput = {
-  where?: Prisma.WisataWhereInput
-  data: Prisma.XOR<Prisma.WisataUpdateWithoutBookingsInput, Prisma.WisataUncheckedUpdateWithoutBookingsInput>
-}
-
-export type WisataUpdateWithoutBookingsInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  price?: Prisma.FloatFieldUpdateOperationsInput | number
-  quota?: Prisma.IntFieldUpdateOperationsInput | number
-  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  kategori?: Prisma.KategoriUpdateOneRequiredWithoutWisatasNestedInput
-}
-
-export type WisataUncheckedUpdateWithoutBookingsInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  price?: Prisma.FloatFieldUpdateOperationsInput | number
-  quota?: Prisma.IntFieldUpdateOperationsInput | number
-  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  kategoriId?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
 export type WisataCreateManyKategoriInput = {
   id?: number
   name: string
   description?: string | null
-  price: number
-  quota?: number
+  contactWa?: string | null
+  contactEmail?: string | null
   latitude?: number | null
   longitude?: number | null
   createdAt?: Date | string
@@ -730,34 +616,32 @@ export type WisataCreateManyKategoriInput = {
 export type WisataUpdateWithoutKategoriInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  price?: Prisma.FloatFieldUpdateOperationsInput | number
-  quota?: Prisma.IntFieldUpdateOperationsInput | number
+  contactWa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  bookings?: Prisma.BookingUpdateManyWithoutWisataNestedInput
 }
 
 export type WisataUncheckedUpdateWithoutKategoriInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  price?: Prisma.FloatFieldUpdateOperationsInput | number
-  quota?: Prisma.IntFieldUpdateOperationsInput | number
+  contactWa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  bookings?: Prisma.BookingUncheckedUpdateManyWithoutWisataNestedInput
 }
 
 export type WisataUncheckedUpdateManyWithoutKategoriInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  price?: Prisma.FloatFieldUpdateOperationsInput | number
-  quota?: Prisma.IntFieldUpdateOperationsInput | number
+  contactWa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -765,58 +649,27 @@ export type WisataUncheckedUpdateManyWithoutKategoriInput = {
 }
 
 
-/**
- * Count Type WisataCountOutputType
- */
-
-export type WisataCountOutputType = {
-  bookings: number
-}
-
-export type WisataCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  bookings?: boolean | WisataCountOutputTypeCountBookingsArgs
-}
-
-/**
- * WisataCountOutputType without action
- */
-export type WisataCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the WisataCountOutputType
-   */
-  select?: Prisma.WisataCountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * WisataCountOutputType without action
- */
-export type WisataCountOutputTypeCountBookingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.BookingWhereInput
-}
-
 
 export type WisataSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   description?: boolean
-  price?: boolean
-  quota?: boolean
+  contactWa?: boolean
+  contactEmail?: boolean
   latitude?: boolean
   longitude?: boolean
   kategoriId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   kategori?: boolean | Prisma.KategoriDefaultArgs<ExtArgs>
-  bookings?: boolean | Prisma.Wisata$bookingsArgs<ExtArgs>
-  _count?: boolean | Prisma.WisataCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["wisata"]>
 
 export type WisataSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   description?: boolean
-  price?: boolean
-  quota?: boolean
+  contactWa?: boolean
+  contactEmail?: boolean
   latitude?: boolean
   longitude?: boolean
   kategoriId?: boolean
@@ -829,8 +682,8 @@ export type WisataSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   id?: boolean
   name?: boolean
   description?: boolean
-  price?: boolean
-  quota?: boolean
+  contactWa?: boolean
+  contactEmail?: boolean
   latitude?: boolean
   longitude?: boolean
   kategoriId?: boolean
@@ -843,8 +696,8 @@ export type WisataSelectScalar = {
   id?: boolean
   name?: boolean
   description?: boolean
-  price?: boolean
-  quota?: boolean
+  contactWa?: boolean
+  contactEmail?: boolean
   latitude?: boolean
   longitude?: boolean
   kategoriId?: boolean
@@ -852,11 +705,9 @@ export type WisataSelectScalar = {
   updatedAt?: boolean
 }
 
-export type WisataOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "price" | "quota" | "latitude" | "longitude" | "kategoriId" | "createdAt" | "updatedAt", ExtArgs["result"]["wisata"]>
+export type WisataOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "contactWa" | "contactEmail" | "latitude" | "longitude" | "kategoriId" | "createdAt" | "updatedAt", ExtArgs["result"]["wisata"]>
 export type WisataInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   kategori?: boolean | Prisma.KategoriDefaultArgs<ExtArgs>
-  bookings?: boolean | Prisma.Wisata$bookingsArgs<ExtArgs>
-  _count?: boolean | Prisma.WisataCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type WisataIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   kategori?: boolean | Prisma.KategoriDefaultArgs<ExtArgs>
@@ -869,14 +720,13 @@ export type $WisataPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   name: "Wisata"
   objects: {
     kategori: Prisma.$KategoriPayload<ExtArgs>
-    bookings: Prisma.$BookingPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     name: string
     description: string | null
-    price: number
-    quota: number
+    contactWa: string | null
+    contactEmail: string | null
     latitude: number | null
     longitude: number | null
     kategoriId: number
@@ -1277,7 +1127,6 @@ readonly fields: WisataFieldRefs;
 export interface Prisma__WisataClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   kategori<T extends Prisma.KategoriDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.KategoriDefaultArgs<ExtArgs>>): Prisma.Prisma__KategoriClient<runtime.Types.Result.GetResult<Prisma.$KategoriPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  bookings<T extends Prisma.Wisata$bookingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Wisata$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1310,8 +1159,8 @@ export interface WisataFieldRefs {
   readonly id: Prisma.FieldRef<"Wisata", 'Int'>
   readonly name: Prisma.FieldRef<"Wisata", 'String'>
   readonly description: Prisma.FieldRef<"Wisata", 'String'>
-  readonly price: Prisma.FieldRef<"Wisata", 'Float'>
-  readonly quota: Prisma.FieldRef<"Wisata", 'Int'>
+  readonly contactWa: Prisma.FieldRef<"Wisata", 'String'>
+  readonly contactEmail: Prisma.FieldRef<"Wisata", 'String'>
   readonly latitude: Prisma.FieldRef<"Wisata", 'Float'>
   readonly longitude: Prisma.FieldRef<"Wisata", 'Float'>
   readonly kategoriId: Prisma.FieldRef<"Wisata", 'Int'>
@@ -1715,30 +1564,6 @@ export type WisataDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Limit how many Wisatas to delete.
    */
   limit?: number
-}
-
-/**
- * Wisata.bookings
- */
-export type Wisata$bookingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Booking
-   */
-  select?: Prisma.BookingSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Booking
-   */
-  omit?: Prisma.BookingOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.BookingInclude<ExtArgs> | null
-  where?: Prisma.BookingWhereInput
-  orderBy?: Prisma.BookingOrderByWithRelationInput | Prisma.BookingOrderByWithRelationInput[]
-  cursor?: Prisma.BookingWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.BookingScalarFieldEnum | Prisma.BookingScalarFieldEnum[]
 }
 
 /**

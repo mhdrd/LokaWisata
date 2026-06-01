@@ -54,8 +54,3 @@ export type Kategori = Prisma.KategoriModel
  * 
  */
 export type Wisata = Prisma.WisataModel
-/**
- * Model Booking
- * 
- */
-export type Booking = Prisma.BookingModel

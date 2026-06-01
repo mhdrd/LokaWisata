@@ -53,8 +53,7 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   User: 'User',
   Kategori: 'Kategori',
-  Wisata: 'Wisata',
-  Booking: 'Booking'
+  Wisata: 'Wisata'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -101,8 +100,8 @@ export const WisataScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
-  price: 'price',
-  quota: 'quota',
+  contactWa: 'contactWa',
+  contactEmail: 'contactEmail',
   latitude: 'latitude',
   longitude: 'longitude',
   kategoriId: 'kategoriId',
@@ -111,21 +110,6 @@ export const WisataScalarFieldEnum = {
 } as const
 
 export type WisataScalarFieldEnum = (typeof WisataScalarFieldEnum)[keyof typeof WisataScalarFieldEnum]
-
-
-export const BookingScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  wisataId: 'wisataId',
-  bookingDate: 'bookingDate',
-  quantity: 'quantity',
-  totalPrice: 'totalPrice',
-  status: 'status',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type BookingScalarFieldEnum = (typeof BookingScalarFieldEnum)[keyof typeof BookingScalarFieldEnum]
 
 
 export const SortOrder = {
