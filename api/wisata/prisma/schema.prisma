@@ -27,6 +27,7 @@ model User {
   password String
   role     Role   @default(USER) // untuk membedakan Admin CMS dan End-User
   avatar   String?
+  phone    String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
