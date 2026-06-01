@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { CreateKategoriDto } from './dto/create-kategori.dto';
 
@@ -14,5 +14,16 @@ export class KategoriService {
     return this.prisma.kategori.findMany({
       include: { _count: { select: { wisatas: true } } },
     });
+  }
+
+  async findOne(id: number) {
+    const kategori = await this.prisma.kategori.findUnique({
+      where: { id },
+      include: { wisatas: true },
+    });
+    if (!kategori) {
+      throw new NotFoundException(`Kategori dengan id ${id} tidak ditemukan`);
+    }
+    return kategori;
   }
 }
