@@ -47,6 +47,7 @@ model Wisata {
   id          Int     @id @default(autoincrement())
   name        String
   description String? @db.Text
+  address     String?
 
   // Kontak untuk dihubungi oleh user (redirect)
   contactWa    String?
