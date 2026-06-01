@@ -9,4 +9,10 @@ export class KategoriService {
   create(createKategoriDto: CreateKategoriDto) {
     return this.prisma.kategori.create({ data: createKategoriDto });
   }
+
+  findAll() {
+    return this.prisma.kategori.findMany({
+      include: { _count: { select: { wisatas: true } } },
+    });
+  }
 }
