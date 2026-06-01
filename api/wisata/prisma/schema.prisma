@@ -61,6 +61,7 @@ model Wisata {
   kategori   Kategori @relation(fields: [kategoriId], references: [id])
   images     WisataImage[]
   reviews    Review[]
+  favorites  Favorite[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -88,4 +89,16 @@ model Review {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Favorite {
+  id     Int @id @default(autoincrement())
+  userId Int
+
+  wisataId Int
+  wisata   Wisata @relation(fields: [wisataId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([userId, wisataId])
 }
