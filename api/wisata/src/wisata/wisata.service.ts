@@ -34,7 +34,8 @@ export class WisataService {
     });
   }
 
-  remove(id: number) {
+  async remove(id: number) {
+    await this.findOne(id);
     return this.prisma.wisata.delete({ where: { id } });
   }
 }
