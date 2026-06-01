@@ -19,12 +19,6 @@ enum Role {
   USER
 }
 
-enum BookingStatus {
-  PENDING
-  SUCCESS
-  CANCELLED
-}
-
 // --- MODEL DATABASE ---
 model User {
   id       Int    @id @default(autoincrement())
@@ -32,9 +26,6 @@ model User {
   email    String @unique
   password String
   role     Role   @default(USER) // untuk membedakan Admin CMS dan End-User
-
-  // Relasi: 1 User bisa punya banyak Booking
-  bookings Booking[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -56,37 +47,18 @@ model Wisata {
   id          Int     @id @default(autoincrement())
   name        String
   description String? @db.Text
-  price       Float // Harga tiket masuk
-  quota       Int     @default(0) // Kuota tiket per hari
 
-  // Koordinat sangat penting untuk API Cuaca (Open-Meteo)
-  latitude  Float?
-  longitude Float?
+  // Kontak untuk dihubungi oleh user (redirect)
+  contactWa    String?
+  contactEmail String?
+
+  // Koordinat untuk API Cuaca (Open-Meteo/BMKG)
+  latitude     Float?
+  longitude    Float?
 
   kategoriId Int
   kategori   Kategori @relation(fields: [kategoriId], references: [id])
 
-  // Relasi: 1 Tempat Wisata bisa dibooking berkali-kali
-  bookings Booking[]
-
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Booking {
-  id Int @id @default(autoincrement())
-
-  userId Int
-  user   User @relation(fields: [userId], references: [id])
-
-  wisataId Int
-  wisata   Wisata @relation(fields: [wisataId], references: [id])
-
-  bookingDate DateTime // Tanggal turis akan datang berkunjung
-  quantity    Int // Jumlah tiket yang dibeli
-  totalPrice  Float // Hasil dari (quantity * Wisata.price)
-  status      BookingStatus @default(PENDING) // Status pemesanan
-
-  createdAt DateTime @default(now()) // Waktu saat transaksi dilakukan
   updatedAt DateTime @updatedAt
 }
