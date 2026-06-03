@@ -20,4 +20,11 @@ export class FavoriteService {
     await this.prisma.favorite.create({ data: { userId, wisataId } });
     return { message: 'Wisata ditambahkan ke favorit', favorited: true };
   }
+
+  findByUser(userId: number) {
+    return this.prisma.favorite.findMany({
+      where: { userId },
+      include: { wisata: true },
+    });
+  }
 }
