@@ -44,4 +44,17 @@ export class ReviewService {
     await this.findOne(id);
     return this.prisma.review.delete({ where: { id } });
   }
+
+  async getAverageRating(wisataId: number) {
+    const result = await this.prisma.review.aggregate({
+      where: { wisataId },
+      _avg: { rating: true },
+      _count: { rating: true },
+    });
+    return {
+      wisataId,
+      averageRating: result._avg.rating ?? 0,
+      totalReviews: result._count.rating,
+    };
+  }
 }
