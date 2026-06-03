@@ -13,12 +13,16 @@ export class WisataService {
   }
 
   async findAll(query: QueryWisataDto) {
-    const { search } = query;
+    const { search, kategoriId } = query;
 
     const where: any = {};
 
     if (search) {
       where.name = { contains: search, mode: 'insensitive' };
+    }
+
+    if (kategoriId) {
+      where.kategoriId = kategoriId;
     }
 
     const data = await this.prisma.wisata.findMany({
