@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Query } from '@nestjs/common';
 import { WisataService } from './wisata.service';
 import { CreateWisataDto } from './dto/create-wisata.dto';
 import { UpdateWisataDto } from './dto/update-wisata.dto';
+import { QueryWisataDto } from './dto/query-wisata.dto';
 import { InternalGuard } from '../internal.guard';
 
 @Controller('wisata')
@@ -15,8 +16,8 @@ export class WisataController {
   }
 
   @Get()
-  findAll() {
-    return this.wisataService.findAll();
+  findAll(@Query() query: QueryWisataDto) {
+    return this.wisataService.findAll(query);
   }
 
   @Get(':id')
