@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { CreateWisataDto } from './dto/create-wisata.dto';
 import { UpdateWisataDto } from './dto/update-wisata.dto';
+import { QueryWisataDto } from './dto/query-wisata.dto';
 
 @Injectable()
 export class WisataService {
@@ -11,8 +12,21 @@ export class WisataService {
     return this.prisma.wisata.create({ data: createWisataDto });
   }
 
-  findAll() {
-    return this.prisma.wisata.findMany({ include: { kategori: true } });
+  async findAll(query: QueryWisataDto) {
+    const { search } = query;
+
+    const where: any = {};
+
+    if (search) {
+      where.name = { contains: search, mode: 'insensitive' };
+    }
+
+    const data = await this.prisma.wisata.findMany({
+      where,
+      include: { kategori: true },
+    });
+
+    return data;
   }
 
   async findOne(id: number) {
