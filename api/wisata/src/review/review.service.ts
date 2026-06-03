@@ -15,4 +15,11 @@ export class ReviewService {
       include: { wisata: true },
     });
   }
+
+  findByWisata(wisataId: number) {
+    return this.prisma.review.findMany({
+      where: { wisataId },
+      orderBy: { createdAt: 'desc' },
+    });
+  }
 }
