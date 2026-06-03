@@ -35,4 +35,9 @@ export class KategoriService {
       data: updateKategoriDto,
     });
   }
+
+  async remove(id: number) {
+    await this.findOne(id);
+    return this.prisma.kategori.delete({ where: { id } });
+  }
 }
