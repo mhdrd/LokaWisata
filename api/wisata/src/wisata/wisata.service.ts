@@ -13,7 +13,7 @@ export class WisataService {
   }
 
   async findAll(query: QueryWisataDto) {
-    const { search, kategoriId } = query;
+    const { search, kategoriId, page = 1, limit = 10 } = query;
 
     const where: any = {};
 
@@ -25,12 +25,27 @@ export class WisataService {
       where.kategoriId = kategoriId;
     }
 
-    const data = await this.prisma.wisata.findMany({
-      where,
-      include: { kategori: true },
-    });
+    const skip = (page - 1) * limit;
 
-    return data;
+    const [data, total] = await Promise.all([
+      this.prisma.wisata.findMany({
+        where,
+        include: { kategori: true },
+        skip,
+        take: limit,
+      }),
+      this.prisma.wisata.count({ where }),
+    ]);
+
+    return {
+      data,
+      meta: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
+      },
+    };
   }
 
   async findOne(id: number) {
