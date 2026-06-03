@@ -13,7 +13,7 @@ export class WisataService {
   }
 
   async findAll(query: QueryWisataDto) {
-    const { search, kategoriId, page = 1, limit = 10 } = query;
+    const { search, kategoriId, page = 1, limit = 10, sortBy = 'createdAt', order = 'desc' } = query;
 
     const where: any = {};
 
@@ -33,6 +33,7 @@ export class WisataService {
         include: { kategori: true },
         skip,
         take: limit,
+        orderBy: { [sortBy]: order },
       }),
       this.prisma.wisata.count({ where }),
     ]);
