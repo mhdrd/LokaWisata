@@ -8,6 +8,7 @@ import { KategoriProxyModule } from './kategori-proxy/kategori-proxy.module';
 import { ReviewProxyModule } from './review-proxy/review-proxy.module';
 import { FavoriteProxyModule } from './favorite-proxy/favorite-proxy.module';
 import { ImageProxyModule } from './image-proxy/image-proxy.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { ImageProxyModule } from './image-proxy/image-proxy.module';
     ReviewProxyModule,
     FavoriteProxyModule,
     ImageProxyModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
