@@ -39,5 +39,9 @@ export class ReviewService {
       data: updateReviewDto,
     });
   }
-}
 
+  async remove(id: number) {
+    await this.findOne(id);
+    return this.prisma.review.delete({ where: { id } });
+  }
+}
