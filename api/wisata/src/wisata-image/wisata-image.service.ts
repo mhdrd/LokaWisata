@@ -1,4 +1,5 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { throwIfNotExist } from '../common/utils/not-exist.util';
 import { PrismaService } from '../prisma.service';
 
 @Injectable()
@@ -20,9 +21,7 @@ export class WisataImageService {
 
   async remove(id: number) {
     const image = await this.prisma.wisataImage.findUnique({ where: { id } });
-    if (!image) {
-      throw new NotFoundException(`Gambar dengan id ${id} tidak ditemukan`);
-    }
+    throwIfNotExist(image, 'Gambar', id);
     return this.prisma.wisataImage.delete({ where: { id } });
   }
 }
