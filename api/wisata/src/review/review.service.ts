@@ -1,4 +1,5 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { throwIfNotExist } from '../common/utils/not-exist.util';
 import { PrismaService } from '../prisma.service';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { UpdateReviewDto } from './dto/update-review.dto';
@@ -26,9 +27,7 @@ export class ReviewService {
 
   async findOne(id: number) {
     const review = await this.prisma.review.findUnique({ where: { id } });
-    if (!review) {
-      throw new NotFoundException(`Review dengan id ${id} tidak ditemukan`);
-    }
+    throwIfNotExist(review, 'Review', id);
     return review;
   }
 
