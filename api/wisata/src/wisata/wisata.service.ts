@@ -1,8 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { CreateWisataDto } from './dto/create-wisata.dto';
 import { UpdateWisataDto } from './dto/update-wisata.dto';
 import { QueryWisataDto } from './dto/query-wisata.dto';
+import { throwIfNotExist } from '../common/utils/not-exist.util';
 
 @Injectable()
 export class WisataService {
@@ -54,9 +55,7 @@ export class WisataService {
       where: { id },
       include: { kategori: true }
     });
-    if (!wisata) {
-      throw new NotFoundException(`Wisata dengan id ${id} tidak ditemukan`);
-    }
+    throwIfNotExist(wisata, 'Wisata', id);
     return wisata;
   }
 
