@@ -21,3 +21,7 @@ export function getToken(): string | null {
   }
   return null;
 }
+
+export function saveUser(user: { id: number; name: string; email: string; role: string }) {
+  localStorage.setItem('user', JSON.stringify(user));
+}
