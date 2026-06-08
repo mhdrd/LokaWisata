@@ -38,3 +38,7 @@ export function clearAuth() {
   localStorage.removeItem('accessToken');
   localStorage.removeItem('user');
 }
+
+export function isAuthenticated(): boolean {
+  return !!getToken();
+}
