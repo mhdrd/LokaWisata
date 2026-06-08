@@ -1,0 +1,12 @@
+{
+  "name": "lokawisata",
+  "version": "1.0.0",
+  "description": "LokaWisata Microservices API",
+  "scripts": {
+    "start:dev": "concurrently \"npm run start:dev --prefix api/wisata\" \"npm run start:dev --prefix api/gateway\"",
+    "install:all": "npm install && npm install --prefix api/wisata && npm install --prefix api/gateway"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

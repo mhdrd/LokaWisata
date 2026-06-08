@@ -1,0 +1,106 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+  engineType = "library"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// --- ENUM UNTUK STATUS & ROLE ---
+enum Role {
+  ADMIN
+  USER
+}
+
+// --- MODEL DATABASE ---
+model User {
+  id       Int    @id @default(autoincrement())
+  name     String
+  email    String @unique
+  password String
+  role     Role   @default(USER) // untuk membedakan Admin CMS dan End-User
+  avatar   String?
+  phone    String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Kategori {
+  id          Int     @id @default(autoincrement())
+  name        String  @unique
+  description String?
+
+  // Relasi: 1 Kategori bisa dimiliki banyak Tempat Wisata
+  wisatas Wisata[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Wisata {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String? @db.Text
+  address     String?
+
+  // Kontak untuk dihubungi oleh user (redirect)
+  contactWa    String?
+  contactEmail String?
+
+  // Koordinat untuk API Cuaca (Open-Meteo/BMKG)
+  latitude     Float?
+  longitude    Float?
+
+  kategoriId Int
+  kategori   Kategori @relation(fields: [kategoriId], references: [id])
+  images     WisataImage[]
+  reviews    Review[]
+  favorites  Favorite[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model WisataImage {
+  id       Int     @id @default(autoincrement())
+  url      String
+  caption  String?
+
+  wisataId Int
+  wisata   Wisata @relation(fields: [wisataId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+}
+
+model Review {
+  id      Int     @id @default(autoincrement())
+  rating  Int
+  comment String? @db.Text
+  userId  Int
+
+  wisataId Int
+  wisata   Wisata @relation(fields: [wisataId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Favorite {
+  id     Int @id @default(autoincrement())
+  userId Int
+
+  wisataId Int
+  wisata   Wisata @relation(fields: [wisataId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([userId, wisataId])
+}
