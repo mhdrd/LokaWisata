@@ -14,3 +14,10 @@ export async function apiFetch(endpoint: string, options: RequestInit = {}) {
 export function saveToken(token: string) {
   localStorage.setItem('accessToken', token);
 }
+
+export function getToken(): string | null {
+  if (typeof window !== 'undefined') {
+    return localStorage.getItem('accessToken');
+  }
+  return null;
+}
