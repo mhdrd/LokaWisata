@@ -33,3 +33,8 @@ export function getUser() {
   }
   return null;
 }
+
+export function clearAuth() {
+  localStorage.removeItem('accessToken');
+  localStorage.removeItem('user');
+}
