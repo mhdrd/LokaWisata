@@ -25,3 +25,11 @@ export function getToken(): string | null {
 export function saveUser(user: { id: number; name: string; email: string; role: string }) {
   localStorage.setItem('user', JSON.stringify(user));
 }
+
+export function getUser() {
+  if (typeof window !== 'undefined') {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
+  }
+  return null;
+}
