@@ -10,3 +10,7 @@ export async function apiFetch(endpoint: string, options: RequestInit = {}) {
     },
   });
 }
+
+export function saveToken(token: string) {
+  localStorage.setItem('accessToken', token);
+}
