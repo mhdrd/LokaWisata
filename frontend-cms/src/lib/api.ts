@@ -2,12 +2,10 @@
 export const API_BASE_URL = 'http://localhost:3002/api';
 
 export async function apiFetch(endpoint: string, options: RequestInit = {}) {
-  const token = getToken();
   return fetch(`${API_BASE_URL}${endpoint}`, {
     ...options,
     headers: {
       'Content-Type': 'application/json',
-      ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
       ...options.headers,
     },
   });
@@ -26,21 +24,4 @@ export function getToken(): string | null {
 
 export function saveUser(user: { id: number; name: string; email: string; role: string }) {
   localStorage.setItem('user', JSON.stringify(user));
-}
-
-export function getUser() {
-  if (typeof window !== 'undefined') {
-    const user = localStorage.getItem('user');
-    return user ? JSON.parse(user) : null;
-  }
-  return null;
-}
-
-export function clearAuth() {
-  localStorage.removeItem('accessToken');
-  localStorage.removeItem('user');
-}
-
-export function isAuthenticated(): boolean {
-  return !!getToken();
 }
