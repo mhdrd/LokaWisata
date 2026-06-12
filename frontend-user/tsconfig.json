@@ -1,0 +1,12 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": false
+  },
+  "exclude": [
+    "node_modules",
+    ".expo",
+    "dist",
+    "babel.config.js"
+  ]
+}
