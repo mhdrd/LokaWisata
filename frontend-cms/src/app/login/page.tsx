@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { apiFetch, saveToken, saveUser } from '@/lib/api';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,6 +21,10 @@ export default function LoginPage() {
     }
     if (data.user) {
       saveUser(data.user);
+    }
+    
+    if (data.accessToken && data.user) {
+      router.push('/dashboard');
     }
   };
   return (
