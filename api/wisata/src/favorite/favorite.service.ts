@@ -24,7 +24,14 @@ export class FavoriteService {
   findByUser(userId: number) {
     return this.prisma.favorite.findMany({
       where: { userId },
-      include: { wisata: true },
+      include: {
+        wisata: {
+          include: {
+            images: true,
+            kategori: true,
+          },
+        },
+      },
     });
   }
 }
