@@ -1,9 +1,23 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import { apiFetch } from '@/lib/api';
 
 export default function KategoriPage() {
   const [categories, setCategories] = useState<any[]>([]);
+  
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await apiFetch('/kategori');
+        const data = await response.json();
+        setCategories(data);
+      } catch (error) {
+        console.error('Gagal mengambil data kategori:', error);
+      }
+    };
+    fetchCategories();
+  }, []);
   
   return (
     <div className="min-h-screen bg-gray-50 p-8">
