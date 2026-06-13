@@ -138,6 +138,20 @@ export default function WisataPage() {
     }
   };
 
+  const handleDeleteWisata = async (wisata: Wisata) => {
+    if (window.confirm(`Yakin ingin menghapus wisata "${wisata.name}"?`)) {
+      try {
+        setLoading(true);
+        await apiFetch(`/wisata/${wisata.id}`, { method: 'DELETE' });
+        console.log('Wisata berhasil dihapus');
+        fetchWisatas();
+      } catch (error) {
+        console.error('Gagal menghapus wisata:', error);
+        setLoading(false);
+      }
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 p-8">
       <div className="flex items-center justify-between mb-6">
@@ -194,7 +208,13 @@ export default function WisataPage() {
                     >
                       Edit
                     </button>
-                    <button type="button" className="text-red-600 hover:text-red-900">Hapus</button>
+                    <button 
+                      type="button" 
+                      onClick={() => handleDeleteWisata(wisata)}
+                      className="text-red-600 hover:text-red-900"
+                    >
+                      Hapus
+                    </button>
                   </td>
                 </tr>
               ))
