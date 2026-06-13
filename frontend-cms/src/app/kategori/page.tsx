@@ -59,6 +59,12 @@ export default function KategoriPage() {
       console.error('Gagal menyimpan kategori:', error);
     }
   };
+
+  const handleDeleteCategory = async (kategori: Category) => {
+    if (window.confirm(`Yakin ingin menghapus kategori "${kategori.name}"?`)) {
+      setDeletingCategory(kategori);
+    }
+  };
   
   return (
     <div className="min-h-screen bg-gray-50 p-8">
@@ -110,7 +116,13 @@ export default function KategoriPage() {
                     >
                       Edit
                     </button>
-                    <button type="button" className="text-red-600 hover:text-red-900">Hapus</button>
+                    <button 
+                      type="button" 
+                      onClick={() => handleDeleteCategory(kategori)}
+                      className="text-red-600 hover:text-red-900"
+                    >
+                      Hapus
+                    </button>
                   </td>
                 </tr>
               ))
