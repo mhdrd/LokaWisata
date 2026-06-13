@@ -15,6 +15,7 @@ export default function DashboardLayout({
       <main className="flex-1 flex flex-col">
         <header className="bg-white shadow-sm px-8 py-4 flex items-center justify-between">
           <h2 className="text-xl font-semibold text-gray-800">Admin LokaWisata</h2>
+          <button type="button" className="text-sm font-medium text-red-600 hover:text-red-800 focus:outline-none">Logout</button>
         </header>
         {children}
       </main>
