@@ -9,18 +9,20 @@ export default function KategoriPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [categoryName, setCategoryName] = useState('');
   
+  const fetchCategories = async () => {
+    setLoading(true);
+    try {
+      const response = await apiFetch('/kategori');
+      const data = await response.json();
+      setCategories(data);
+    } catch (error) {
+      console.error('Gagal mengambil data kategori:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await apiFetch('/kategori');
-        const data = await response.json();
-        setCategories(data);
-      } catch (error) {
-        console.error('Gagal mengambil data kategori:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchCategories();
   }, []);
 
@@ -33,6 +35,7 @@ export default function KategoriPage() {
         body: JSON.stringify({ name: categoryName })
       });
       console.log('Kategori berhasil disimpan');
+      fetchCategories();
     } catch (error) {
       console.error('Gagal menyimpan kategori:', error);
     }
