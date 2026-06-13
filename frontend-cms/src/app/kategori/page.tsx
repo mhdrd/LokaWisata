@@ -3,8 +3,13 @@
 import { useState, useEffect } from 'react';
 import { apiFetch } from '@/lib/api';
 
+interface Category {
+  id: number;
+  name: string;
+}
+
 export default function KategoriPage() {
-  const [categories, setCategories] = useState<any[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [categoryName, setCategoryName] = useState('');
@@ -73,7 +78,7 @@ export default function KategoriPage() {
                 </td>
               </tr>
             ) : categories.length > 0 ? (
-              categories.map((kategori: any) => (
+              categories.map((kategori: Category) => (
                 <tr key={kategori.id}>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{kategori.id}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{kategori.name}</td>
