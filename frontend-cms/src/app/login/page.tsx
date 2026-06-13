@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import { apiFetch } from '@/lib/api';
+import { apiFetch, saveToken } from '@/lib/api';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -9,10 +9,14 @@ export default function LoginPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await apiFetch('/auth/login', {
+    const response = await apiFetch('/auth/login', {
       method: 'POST',
       body: JSON.stringify({ email, password }),
     });
+    const data = await response.json();
+    if (data.accessToken) {
+      saveToken(data.accessToken);
+    }
   };
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
