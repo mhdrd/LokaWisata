@@ -63,6 +63,12 @@ export default function KategoriPage() {
   const handleDeleteCategory = async (kategori: Category) => {
     if (window.confirm(`Yakin ingin menghapus kategori "${kategori.name}"?`)) {
       setDeletingCategory(kategori);
+      try {
+        await apiFetch(`/kategori/${kategori.id}`, { method: 'DELETE' });
+        console.log('Kategori berhasil dihapus');
+      } catch (error) {
+        console.error('Gagal menghapus kategori:', error);
+      }
     }
   };
   
