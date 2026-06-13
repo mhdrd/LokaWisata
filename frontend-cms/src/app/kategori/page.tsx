@@ -13,6 +13,7 @@ export default function KategoriPage() {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [categoryName, setCategoryName] = useState('');
+  const [editingCategory, setEditingCategory] = useState<Category | null>(null);
   
   const fetchCategories = async () => {
     try {
@@ -84,7 +85,17 @@ export default function KategoriPage() {
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{kategori.id}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{kategori.name}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                    <button type="button" className="text-indigo-600 hover:text-indigo-900 mr-4">Edit</button>
+                    <button 
+                      type="button" 
+                      onClick={() => {
+                        setEditingCategory(kategori);
+                        setCategoryName(kategori.name);
+                        setIsModalOpen(true);
+                      }}
+                      className="text-indigo-600 hover:text-indigo-900 mr-4"
+                    >
+                      Edit
+                    </button>
                     <button type="button" className="text-red-600 hover:text-red-900">Hapus</button>
                   </td>
                 </tr>
