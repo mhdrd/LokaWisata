@@ -146,7 +146,10 @@ export default function KategoriPage() {
             <div className="flex justify-end space-x-3">
               <button 
                 type="button" 
-                onClick={() => setIsModalOpen(false)}
+                onClick={() => {
+                  setEditingCategory(null);
+                  setIsModalOpen(false);
+                }}
                 className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md"
               >
                 Batal
