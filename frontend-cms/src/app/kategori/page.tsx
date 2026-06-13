@@ -15,7 +15,6 @@ export default function KategoriPage() {
   const [categoryName, setCategoryName] = useState('');
   
   const fetchCategories = async () => {
-    setLoading(true);
     try {
       const response = await apiFetch('/kategori');
       const data = await response.json();
@@ -28,6 +27,7 @@ export default function KategoriPage() {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchCategories();
   }, []);
 
@@ -40,6 +40,7 @@ export default function KategoriPage() {
         body: JSON.stringify({ name: categoryName })
       });
       console.log('Kategori berhasil disimpan');
+      setLoading(true);
       fetchCategories();
       setCategoryName('');
       setIsModalOpen(false);
