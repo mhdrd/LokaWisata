@@ -38,11 +38,24 @@ export default function KategoriPage() {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            <tr>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center" colSpan={3}>
-                Belum ada data kategori
-              </td>
-            </tr>
+            {categories.length > 0 ? (
+              categories.map((kategori: any) => (
+                <tr key={kategori.id}>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{kategori.id}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{kategori.nama}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <button type="button" className="text-indigo-600 hover:text-indigo-900 mr-4">Edit</button>
+                    <button type="button" className="text-red-600 hover:text-red-900">Hapus</button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center" colSpan={3}>
+                  Belum ada data kategori
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
