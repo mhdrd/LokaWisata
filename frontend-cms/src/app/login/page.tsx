@@ -5,6 +5,10 @@ import { useState } from 'react';
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+  };
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="w-full max-w-md p-8 space-y-6 bg-white shadow-lg rounded-xl">
