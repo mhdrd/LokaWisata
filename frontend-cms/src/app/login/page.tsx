@@ -6,6 +6,8 @@ export default function LoginPage() {
           <h1 className="text-3xl font-bold text-gray-900">LokaWisata</h1>
           <p className="mt-2 text-sm text-gray-600">Masuk ke Dashboard Admin</p>
         </div>
+        <form className="space-y-4">
+        </form>
       </div>
     </div>
   );
