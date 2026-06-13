@@ -56,7 +56,11 @@ export default function KategoriPage() {
         <h1 className="text-3xl font-bold text-gray-900">Kategori</h1>
         <button 
           type="button" 
-          onClick={() => setIsModalOpen(true)}
+          onClick={() => {
+            setEditingCategory(null);
+            setCategoryName('');
+            setIsModalOpen(true);
+          }}
           className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 font-medium"
         >
           Tambah Kategori
@@ -114,7 +118,9 @@ export default function KategoriPage() {
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-lg p-6 w-full max-w-md">
-            <h2 className="text-xl font-bold mb-4">Tambah Kategori</h2>
+            <h2 className="text-xl font-bold mb-4">
+              {editingCategory ? 'Edit Kategori' : 'Tambah Kategori'}
+            </h2>
             <div className="mb-4">
               <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
                 Nama Kategori
