@@ -19,6 +19,7 @@ export default function WisataPage() {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [categories, setCategories] = useState<Kategori[]>([]);
+  const [editingWisata, setEditingWisata] = useState<Wisata | null>(null);
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -52,9 +53,7 @@ export default function WisataPage() {
   };
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchWisatas();
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchCategories();
   }, []);
 
@@ -76,12 +75,21 @@ export default function WisataPage() {
         kategoriId: parseInt(formData.kategoriId)
       };
 
-      await apiFetch('/wisata', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      console.log('Wisata berhasil disimpan');
+      if (editingWisata) {
+        await apiFetch(`/wisata/${editingWisata.id}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        console.log('Wisata berhasil diupdate');
+      } else {
+        await apiFetch('/wisata', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        console.log('Wisata berhasil disimpan');
+      }
       
       fetchWisatas();
       setFormData({
@@ -93,10 +101,38 @@ export default function WisataPage() {
         longitude: '',
         kategoriId: ''
       });
+      setEditingWisata(null);
       setIsModalOpen(false);
     } catch (error) {
       console.error('Gagal menyimpan wisata:', error);
       setLoading(false);
+    }
+  };
+
+  const handleEditClick = async (wisata: Wisata) => {
+    try {
+      // Fetch detail wisata to get all fields including description, contactWa, etc.
+      // Since the list might not have full detail if the backend strips it, but actually the Prisma include returns full anyway.
+      // But just to be safe, we'll try to fetch the detail or just use the object if it has everything.
+      // In our case, the list returns full objects. Wait, the list has contactWa? Let's check `wisata` type.
+      // We didn't define full fields in `interface Wisata`. We should use the object or fetch by ID.
+      // Let's fetch detail by ID to get the full data for editing.
+      const response = await apiFetch(`/wisata/${wisata.id}`);
+      const detail = await response.json();
+      
+      setEditingWisata(detail);
+      setFormData({
+        name: detail.name || '',
+        description: detail.description || '',
+        contactWa: detail.contactWa || '',
+        contactEmail: detail.contactEmail || '',
+        latitude: detail.latitude ? detail.latitude.toString() : '',
+        longitude: detail.longitude ? detail.longitude.toString() : '',
+        kategoriId: detail.kategoriId ? detail.kategoriId.toString() : ''
+      });
+      setIsModalOpen(true);
+    } catch (error) {
+      console.error('Gagal mengambil detail wisata:', error);
     }
   };
 
@@ -107,6 +143,7 @@ export default function WisataPage() {
         <button 
           type="button" 
           onClick={() => {
+            setEditingWisata(null);
             setFormData({
               name: '',
               description: '',
@@ -148,8 +185,13 @@ export default function WisataPage() {
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{wisata.name}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{wisata.kategori?.name || '-'}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                    {/* Placeholder untuk tombol aksi */}
-                    <button type="button" className="text-indigo-600 hover:text-indigo-900 mr-4">Edit</button>
+                    <button 
+                      type="button" 
+                      onClick={() => handleEditClick(wisata)}
+                      className="text-indigo-600 hover:text-indigo-900 mr-4"
+                    >
+                      Edit
+                    </button>
                     <button type="button" className="text-red-600 hover:text-red-900">Hapus</button>
                   </td>
                 </tr>
@@ -168,7 +210,9 @@ export default function WisataPage() {
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-lg p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-            <h2 className="text-xl font-bold mb-4">Tambah Wisata</h2>
+            <h2 className="text-xl font-bold mb-4">
+              {editingWisata ? 'Edit Wisata' : 'Tambah Wisata'}
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               <div className="col-span-1 md:col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-1">Nama Wisata *</label>
