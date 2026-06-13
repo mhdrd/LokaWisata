@@ -5,6 +5,7 @@ import { apiFetch } from '@/lib/api';
 
 export default function KategoriPage() {
   const [categories, setCategories] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   
   useEffect(() => {
     const fetchCategories = async () => {
@@ -14,6 +15,8 @@ export default function KategoriPage() {
         setCategories(data);
       } catch (error) {
         console.error('Gagal mengambil data kategori:', error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchCategories();
@@ -38,7 +41,13 @@ export default function KategoriPage() {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {categories.length > 0 ? (
+            {loading ? (
+              <tr>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center" colSpan={3}>
+                  Memuat data kategori...
+                </td>
+              </tr>
+            ) : categories.length > 0 ? (
               categories.map((kategori: any) => (
                 <tr key={kategori.id}>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{kategori.id}</td>
