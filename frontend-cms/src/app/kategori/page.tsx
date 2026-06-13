@@ -35,12 +35,21 @@ export default function KategoriPage() {
   const handleSaveCategory = async () => {
     if (!categoryName) return;
     try {
-      await apiFetch('/kategori', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: categoryName })
-      });
-      console.log('Kategori berhasil disimpan');
+      if (editingCategory) {
+        await apiFetch(`/kategori/${editingCategory.id}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: categoryName })
+        });
+        console.log('Kategori berhasil diupdate');
+      } else {
+        await apiFetch('/kategori', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: categoryName })
+        });
+        console.log('Kategori berhasil disimpan');
+      }
       setLoading(true);
       fetchCategories();
       setCategoryName('');
