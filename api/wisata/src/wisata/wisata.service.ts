@@ -31,7 +31,7 @@ export class WisataService {
     const [data, total] = await Promise.all([
       this.prisma.wisata.findMany({
         where,
-        include: { kategori: true },
+        include: { kategori: true, images: true },
         skip,
         take: limit,
         orderBy: { [sortBy]: order },
@@ -53,7 +53,7 @@ export class WisataService {
   async findOne(id: number) {
     const wisata = await this.prisma.wisata.findUnique({ 
       where: { id },
-      include: { kategori: true }
+      include: { kategori: true, images: true }
     });
     throwIfNotExist(wisata, 'Wisata', id);
     return wisata;
