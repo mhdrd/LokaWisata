@@ -7,6 +7,7 @@ export default function KategoriPage() {
   const [categories, setCategories] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [categoryName, setCategoryName] = useState('');
   
   useEffect(() => {
     const fetchCategories = async () => {
@@ -85,6 +86,8 @@ export default function KategoriPage() {
               <input
                 type="text"
                 id="name"
+                value={categoryName}
+                onChange={(e) => setCategoryName(e.target.value)}
                 className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Masukkan nama kategori"
               />
