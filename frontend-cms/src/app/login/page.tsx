@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import { apiFetch, saveToken } from '@/lib/api';
+import { apiFetch, saveToken, saveUser } from '@/lib/api';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -16,6 +16,9 @@ export default function LoginPage() {
     const data = await response.json();
     if (data.accessToken) {
       saveToken(data.accessToken);
+    }
+    if (data.user) {
+      saveUser(data.user);
     }
   };
   return (
