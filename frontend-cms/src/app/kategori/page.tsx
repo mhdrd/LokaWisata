@@ -6,6 +6,7 @@ import { apiFetch } from '@/lib/api';
 export default function KategoriPage() {
   const [categories, setCategories] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   
   useEffect(() => {
     const fetchCategories = async () => {
