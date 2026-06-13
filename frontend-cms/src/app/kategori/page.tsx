@@ -23,6 +23,20 @@ export default function KategoriPage() {
     };
     fetchCategories();
   }, []);
+
+  const handleSaveCategory = async () => {
+    if (!categoryName) return;
+    try {
+      await apiFetch('/kategori', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: categoryName })
+      });
+      console.log('Kategori berhasil disimpan');
+    } catch (error) {
+      console.error('Gagal menyimpan kategori:', error);
+    }
+  };
   
   return (
     <div className="min-h-screen bg-gray-50 p-8">
@@ -102,6 +116,7 @@ export default function KategoriPage() {
               </button>
               <button 
                 type="button" 
+                onClick={handleSaveCategory}
                 className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
               >
                 Simpan
