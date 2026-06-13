@@ -66,8 +66,11 @@ export default function KategoriPage() {
       try {
         await apiFetch(`/kategori/${kategori.id}`, { method: 'DELETE' });
         console.log('Kategori berhasil dihapus');
+        fetchCategories();
       } catch (error) {
         console.error('Gagal menghapus kategori:', error);
+      } finally {
+        setDeletingCategory(null);
       }
     }
   };
