@@ -17,6 +17,17 @@ interface Wisata {
 export default function WisataPage() {
   const [wisatas, setWisatas] = useState<Wisata[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [categories, setCategories] = useState<Kategori[]>([]);
+  const [formData, setFormData] = useState({
+    name: '',
+    description: '',
+    contactWa: '',
+    contactEmail: '',
+    latitude: '',
+    longitude: '',
+    kategoriId: ''
+  });
 
   const fetchWisatas = async () => {
     try {
@@ -30,15 +41,87 @@ export default function WisataPage() {
     }
   };
 
+  const fetchCategories = async () => {
+    try {
+      const response = await apiFetch('/kategori');
+      const data = await response.json();
+      setCategories(data);
+    } catch (error) {
+      console.error('Gagal mengambil data kategori:', error);
+    }
+  };
+
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchWisatas();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    fetchCategories();
   }, []);
+
+  const handleSaveWisata = async () => {
+    if (!formData.name || !formData.kategoriId) {
+      alert("Nama dan Kategori wajib diisi");
+      return;
+    }
+    
+    try {
+      setLoading(true);
+      const payload = {
+        name: formData.name,
+        description: formData.description || undefined,
+        contactWa: formData.contactWa || undefined,
+        contactEmail: formData.contactEmail || undefined,
+        latitude: formData.latitude ? parseFloat(formData.latitude) : undefined,
+        longitude: formData.longitude ? parseFloat(formData.longitude) : undefined,
+        kategoriId: parseInt(formData.kategoriId)
+      };
+
+      await apiFetch('/wisata', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      console.log('Wisata berhasil disimpan');
+      
+      fetchWisatas();
+      setFormData({
+        name: '',
+        description: '',
+        contactWa: '',
+        contactEmail: '',
+        latitude: '',
+        longitude: '',
+        kategoriId: ''
+      });
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error('Gagal menyimpan wisata:', error);
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 p-8">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-3xl font-bold text-gray-900">Tempat Wisata</h1>
+        <button 
+          type="button" 
+          onClick={() => {
+            setFormData({
+              name: '',
+              description: '',
+              contactWa: '',
+              contactEmail: '',
+              latitude: '',
+              longitude: '',
+              kategoriId: ''
+            });
+            setIsModalOpen(true);
+          }}
+          className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 font-medium"
+        >
+          Tambah Wisata
+        </button>
       </div>
       
       <div className="bg-white shadow-md rounded-lg overflow-hidden">
@@ -81,6 +164,107 @@ export default function WisataPage() {
           </tbody>
         </table>
       </div>
+
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+            <h2 className="text-xl font-bold mb-4">Tambah Wisata</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <div className="col-span-1 md:col-span-2">
+                <label className="block text-sm font-medium text-gray-700 mb-1">Nama Wisata *</label>
+                <input
+                  type="text"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Masukkan nama wisata"
+                />
+              </div>
+              <div className="col-span-1 md:col-span-2">
+                <label className="block text-sm font-medium text-gray-700 mb-1">Kategori *</label>
+                <select
+                  value={formData.kategoriId}
+                  onChange={(e) => setFormData({ ...formData, kategoriId: e.target.value })}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="">Pilih Kategori</option>
+                  {categories.map((cat) => (
+                    <option key={cat.id} value={cat.id}>{cat.name}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="col-span-1 md:col-span-2">
+                <label className="block text-sm font-medium text-gray-700 mb-1">Deskripsi</label>
+                <textarea
+                  value={formData.description}
+                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Masukkan deskripsi"
+                  rows={3}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Kontak WA</label>
+                <input
+                  type="text"
+                  value={formData.contactWa}
+                  onChange={(e) => setFormData({ ...formData, contactWa: e.target.value })}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Contoh: 08123456789"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Kontak Email</label>
+                <input
+                  type="email"
+                  value={formData.contactEmail}
+                  onChange={(e) => setFormData({ ...formData, contactEmail: e.target.value })}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Contoh: info@wisata.com"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Latitude</label>
+                <input
+                  type="number"
+                  step="any"
+                  value={formData.latitude}
+                  onChange={(e) => setFormData({ ...formData, latitude: e.target.value })}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="-6.200000"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Longitude</label>
+                <input
+                  type="number"
+                  step="any"
+                  value={formData.longitude}
+                  onChange={(e) => setFormData({ ...formData, longitude: e.target.value })}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="106.816666"
+                />
+              </div>
+            </div>
+            <div className="flex justify-end space-x-3 mt-6">
+              <button 
+                type="button" 
+                onClick={() => setIsModalOpen(false)}
+                className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md"
+              >
+                Batal
+              </button>
+              <button 
+                type="button" 
+                onClick={handleSaveWisata}
+                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+              >
+                Simpan
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
