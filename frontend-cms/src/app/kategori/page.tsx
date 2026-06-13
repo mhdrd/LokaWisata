@@ -1,4 +1,10 @@
+"use client";
+
+import { useState, useEffect } from 'react';
+
 export default function KategoriPage() {
+  const [categories, setCategories] = useState<any[]>([]);
+  
   return (
     <div className="min-h-screen bg-gray-50 p-8">
       <div className="flex items-center justify-between mb-6">
