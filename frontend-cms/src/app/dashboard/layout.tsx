@@ -13,6 +13,9 @@ export default function DashboardLayout({
         </nav>
       </aside>
       <main className="flex-1 flex flex-col">
+        <header className="bg-white shadow-sm px-8 py-4 flex items-center justify-between">
+          <h2 className="text-xl font-semibold text-gray-800">Admin LokaWisata</h2>
+        </header>
         {children}
       </main>
     </div>
