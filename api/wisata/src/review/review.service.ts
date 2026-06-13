@@ -21,6 +21,15 @@ export class ReviewService {
   findByWisata(wisataId: number) {
     return this.prisma.review.findMany({
       where: { wisataId },
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            avatar: true,
+          },
+        },
+      },
       orderBy: { createdAt: 'desc' },
     });
   }
