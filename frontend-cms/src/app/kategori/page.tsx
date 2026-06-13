@@ -36,6 +36,8 @@ export default function KategoriPage() {
       });
       console.log('Kategori berhasil disimpan');
       fetchCategories();
+      setCategoryName('');
+      setIsModalOpen(false);
     } catch (error) {
       console.error('Gagal menyimpan kategori:', error);
     }
@@ -74,7 +76,7 @@ export default function KategoriPage() {
               categories.map((kategori: any) => (
                 <tr key={kategori.id}>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{kategori.id}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{kategori.nama}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{kategori.name}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <button type="button" className="text-indigo-600 hover:text-indigo-900 mr-4">Edit</button>
                     <button type="button" className="text-red-600 hover:text-red-900">Hapus</button>
